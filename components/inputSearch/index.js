@@ -9,7 +9,6 @@ const InputSearch = ({props}) => {
   const onChange = useCallback((event) => {
     const query = event.target.value;
     setMovie(query);
-    console.log("query",query)
     if (event.keyCode === 13) {
       fetch(`http://www.omdbapi.com/?t=${query}&apikey=aa9e23c2`)
       .then(res => res.json())
@@ -22,7 +21,6 @@ const InputSearch = ({props}) => {
   return (
     <>
       <TextField color="primary" id="outlined-basic" label="Movie to buy..." variant="outlined" onKeyUp={onChange}/>
-      {console.log(props)}
     </>
   );
 };
@@ -30,8 +28,6 @@ const InputSearch = ({props}) => {
 export async function getStaticProps() {
   const res = await fetch(`http://www.omdbapi.com/?t=home&apikey=aa9e23c2`)
   const data = await res.json()
-
-  console.log("s", data);
 
   if (!data) {
     return {

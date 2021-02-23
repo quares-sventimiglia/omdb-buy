@@ -10,8 +10,6 @@ interface Props {
 }
 
 const IndexPage: React.FC<Props> = ({ results }) => {
-  console.log({ results });
-
   return (
     <Box padding={4}>
       <Grid
@@ -39,9 +37,8 @@ const IndexPage: React.FC<Props> = ({ results }) => {
                 <Text fontSize="2xl" fontWeight={500}>
                   {movie.title}
                 </Text>
-                <Text>Year : {movie.year}</Text>
                 <Text fontSize="2xl" fontWeight={500}>
-                  $ {movie.price}
+                  $ {movie.year} ARS
                 </Text>
               </Stack>
             </Stack>
@@ -54,6 +51,7 @@ const IndexPage: React.FC<Props> = ({ results }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+
   const results = await api.search(query.q as string);
 
   return {

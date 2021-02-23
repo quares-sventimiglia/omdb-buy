@@ -4,13 +4,22 @@ import Link from "next/link";
 import api from "../product/api";
 import { Product } from "../product/types";
 import { Stack, Box, Image, Text, Button } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 interface Props {
   result: Product;
 }
 
 const IndexPage: React.FC<Props> = ({ result }) => {
-console.log("result", result)
+  const router = useRouter();
+
+  const contactCreatePayment = () => {
+    axios.post("/api/checkout", result).then((res: any) => {
+      router.push(res.data.init_point);
+    });
+  };
+
   return (
     <Box padding={4}>
       <Stack
@@ -20,18 +29,27 @@ console.log("result", result)
         borderRadius={2}
         boxShadow="sm"
       >
-        <Stack direction="row">
-          <Image src={result.image}/>
-          <Stack>
-            <Text>{result.title}</Text>
-            <Text>{result.year}</Text>
+        <Stack direction="row" spacing={10}>
+          <Image src={result.image} />
+          <Stack justifyContent="space-between">
+            <Stack direction="row" justifyContent="space-between">
+              <Text fontSize="4xl" fontWeight="bold">
+                {result.title}
+              </Text>
+              <Text fontSize="4xl" fontWeight="bold" color="yellow.400">
+                {result.rated}
+              </Text>
+            </Stack>
+            <Text fontSize="4xl" fontWeight="bold">
+              $ {result.year} ARS
+            </Text>
             <Text>{result.plot}</Text>
-            <Text>{result.rated}</Text>
-            <Text>{result.time}</Text>
-            <Button color="yellow.400">Buy</Button>
+            <Text>Duration : {result.time}</Text>
+            <Button size="lg" color="yellow.400" onClick={contactCreatePayment}>
+              Buy
+            </Button>
           </Stack>
         </Stack>
-        
       </Stack>
     </Box>
   );
