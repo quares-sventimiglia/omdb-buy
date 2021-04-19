@@ -4,14 +4,16 @@ import Link from "next/link";
 import api from "../product/api";
 import { Products } from "../product/types";
 import { Stack, Box, Image, Text, Grid, Spinner } from "@chakra-ui/react";
+import  Home  from "../components/inputSearch/home"
 
 interface Props {
   results: Products[];
 }
 
 const IndexPage: React.FC<Props> = ({ results }) => {
-  return (
-    <Box padding={4}>
+  if(results){
+    return (
+      <Box padding={4}>
       <Grid
         width="100%"
         backgroundColor="white"
@@ -20,8 +22,7 @@ const IndexPage: React.FC<Props> = ({ results }) => {
         boxShadow="sm"
         templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
       >
-        {results &&
-          results.map((movie) => (
+          {results.map((movie) => (
             <Link key={movie.id} href={`/${movie.id}`}>
               <a>
                 <Stack direction="row" padding={4}>
@@ -48,7 +49,10 @@ const IndexPage: React.FC<Props> = ({ results }) => {
           ))}
       </Grid>
     </Box>
-  );
+    )
+  } else {
+    return <Home /> 
+  }
 };
 
 export const getServerSideProps = async ({ query }) => {

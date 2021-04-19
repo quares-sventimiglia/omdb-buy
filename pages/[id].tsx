@@ -3,7 +3,7 @@ import { GetServerSideProps } from "next";
 import Link from "next/link";
 import api from "../product/api";
 import { Product } from "../product/types";
-import { Stack, Box, Image, Text, Button } from "@chakra-ui/react";
+import { Stack, Box, Image, Text, Button, IconButton } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -20,7 +20,7 @@ const IndexPage: React.FC<Props> = ({ result }) => {
     });
   };
 
-  if(!result) return <h1>Not found</h1>
+  if (!result) return <h1>Not found</h1>;
 
   return (
     <Box padding={4}>
@@ -31,9 +31,17 @@ const IndexPage: React.FC<Props> = ({ result }) => {
         borderRadius={2}
         boxShadow="sm"
       >
+        <IconButton
+          aria-label="Search database"
+          icon={
+            <img src="https://icongr.am/feather/arrow-left.svg?size=30&color=currentColor" />
+          }
+          width="min-content"
+          onClick={() => router.back()}
+        />
         <Stack direction="row" spacing={10}>
           <Image src={result.image} />
-          <Stack justifyContent="space-between">
+          <Stack width="100%" justifyContent="space-between">
             <Stack direction="row" justifyContent="space-between">
               <Text fontSize="4xl" fontWeight="bold">
                 {result.title}
@@ -58,11 +66,10 @@ const IndexPage: React.FC<Props> = ({ result }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-
-  if(!query.id) {
+  if (!query.id) {
     return {
-      props : {}
-    }
+      props: {},
+    };
   }
 
   const result = await api.fetch(query.id as string);
