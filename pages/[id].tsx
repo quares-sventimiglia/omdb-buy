@@ -20,6 +20,8 @@ const IndexPage: React.FC<Props> = ({ result }) => {
     });
   };
 
+  if(!result) return <h1>Not found</h1>
+
   return (
     <Box padding={4}>
       <Stack
@@ -56,6 +58,13 @@ const IndexPage: React.FC<Props> = ({ result }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+
+  if(!query.id) {
+    return {
+      props : {}
+    }
+  }
+
   const result = await api.fetch(query.id as string);
 
   return {

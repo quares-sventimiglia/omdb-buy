@@ -7,7 +7,7 @@ export default {
       `http://www.omdbapi.com/?s=${query}&apikey=aa9e23c2`
     );
     const response = await res.json();
-    return response.Search.map((product) => ({
+    return response && response.Search.map((product) => ({
       id: product.imdbID,
       title: product.Title,
       image: product.Poster,
