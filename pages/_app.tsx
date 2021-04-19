@@ -22,9 +22,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMovie(event.target.value);
-    console.log("MOVIE", movie)
   };
-
 
   function backHome() {
     router.push("/");
