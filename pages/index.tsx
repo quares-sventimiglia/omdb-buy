@@ -1,27 +1,28 @@
 import React from "react";
-import { GetServerSideProps, GetStaticProps } from "next";
 import Link from "next/link";
 import api from "../product/api";
 import { Products } from "../product/types";
 import { Stack, Box, Image, Text, Grid, Spinner } from "@chakra-ui/react";
-import  Home  from "../components/inputSearch/home"
+import Home from "../components/inputSearch/home";
+import FailurePage from "./failure";
 
 interface Props {
   results: Products[];
 }
 
 const IndexPage: React.FC<Props> = ({ results }) => {
-  if(results){
+  if (results) {
+    if (results[0].error) return <FailurePage message={results[0].error} />;
     return (
       <Box padding={4}>
-      <Grid
-        width="100%"
-        backgroundColor="white"
-        padding={4}
-        borderRadius={2}
-        boxShadow="sm"
-        templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
-      >
+        <Grid
+          width="100%"
+          backgroundColor="white"
+          padding={4}
+          borderRadius={2}
+          boxShadow="sm"
+          templateColumns="repeat(auto-fill, minmax(500px, 1fr))"
+        >
           {results.map((movie) => (
             <Link key={movie.id} href={`/${movie.id}`}>
               <a>
@@ -47,11 +48,11 @@ const IndexPage: React.FC<Props> = ({ results }) => {
               </a>
             </Link>
           ))}
-      </Grid>
-    </Box>
-    )
+        </Grid>
+      </Box>
+    );
   } else {
-    return <Home /> 
+    return <Home />;
   }
 };
 

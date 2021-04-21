@@ -18,5 +18,6 @@ export interface Movie {
 
 
 export interface OmdbResponse {
-  Search: RawProduct[]
+  Search: RawProduct[],
+  Error: string
 }

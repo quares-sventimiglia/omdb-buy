@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { GetServerSideProps } from "next";
 import Link from "next/link";
 import api from "../product/api";
 import { Product } from "../product/types";
-import { Stack, Box, Image, Text, Button, IconButton } from "@chakra-ui/react";
+import {
+  Stack,
+  Box,
+  Image,
+  Text,
+  Button,
+  IconButton,
+  Spinner,
+} from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
@@ -13,14 +21,21 @@ interface Props {
 
 const IndexPage: React.FC<Props> = ({ result }) => {
   const router = useRouter();
+  3;
 
-  const contactCreatePayment = () => {
-    axios.post("/api/checkout", result).then((res: any) => {
-      router.push(res.data.init_point);
-    });
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const contactCreatePayment = async () => {
+    setLoading(true);
+    const response = await axios.post("/api/checkout", result);
+    console.log("RESPONSE", response)
+
+    router.push(response.data.init_point)
+    setLoading(false);
   };
 
   if (!result) return <h1>Not found</h1>;
+  // if(loading) return <Spinner size="xl"/>
 
   return (
     <Box padding={4}>
@@ -32,7 +47,7 @@ const IndexPage: React.FC<Props> = ({ result }) => {
         boxShadow="sm"
       >
         <IconButton
-          aria-label="Search database"
+          aria-label="Go back"
           icon={
             <img src="https://icongr.am/feather/arrow-left.svg?size=30&color=currentColor" />
           }

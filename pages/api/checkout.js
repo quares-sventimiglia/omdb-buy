@@ -1,11 +1,12 @@
 import mercadopago from "mercadopago";
+import "dotenv/config"
 
 export default async function (req, res) {
   const { title, year, plot, image } = req.body;
 
   mercadopago.configure({
-    access_token:
-      "TEST-7835178460898996-022216-012217c509161746d42930f376bf1b2c-709573187",
+    access_token: process.env.ACCESS_TOKEN,
+    integrator_id: process.env.INTEGRATOR_ID
   });
 
   const preference = {
@@ -25,9 +26,9 @@ export default async function (req, res) {
       email: "lacquatnovic@novic.com",
     },
     back_urls: {
-      success: "https://www.tu-sitio/success",
-      failure: "http://www.tu-sitio/failure",
-      pending: "http://www.tu-sitio/pending",
+      success: "http://localhost:3000/success",
+      failure: "http://localhost:3000/failure",
+      pending: "http://localhost:3000/pending",
     },
     auto_return: "approved",
   };

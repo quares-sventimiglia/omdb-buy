@@ -58,7 +58,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
       </Head>
-      <Stack backgroundColor="#0b0a0c" height="100%" minHeight="100vh">
+      <Stack
+        backgroundColor="#0b0a0c"
+        height="100%"
+        minHeight="100vh"
+      >
         <Stack
           padding={4}
           spacing={6}
@@ -68,12 +72,17 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
           <IconButton
             colorScheme="yellow.400"
             aria-label="Back Home"
-            icon={<img src="favicon/imdb.png" />}
+            icon={<img src="/favicon/imdb.png" />}
             onClick={backHome}
           />
           <form action="" style={{ width: "100%" }} onSubmit={handleSubmit}>
             <Stack direction="row" spacing={0} width="100%">
-              <Input name="query" backgroundColor="white" roundedRight={0} onChange={handleChange}/>
+              <Input
+                name="query"
+                backgroundColor="white"
+                roundedRight={0}
+                onChange={handleChange}
+              />
               <IconButton
                 roundedLeft={0}
                 aria-label="Search database"

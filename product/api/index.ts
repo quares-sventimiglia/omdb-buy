@@ -1,5 +1,4 @@
 import { Products, Product } from "../types";
-import { OmdbResponse, Movie } from "./types";
 
 export default {
   search: async (query: string): Promise<Products[]> => {
@@ -7,13 +6,17 @@ export default {
       `http://www.omdbapi.com/?s=${query}&apikey=aa9e23c2`
     );
     const response = await res.json();
-    return response && response.Search.map((product) => ({
-      id: product.imdbID,
-      title: product.Title,
-      image: product.Poster,
-      year: product.Year,
-      price: (Math.random() * (100 - 50) + 50).toFixed(2),
-    }));
+    if (response.Error) return [{ error: response.Error }];
+    return (
+      response &&
+      response.Search.map((product) => ({
+        id: product.imdbID,
+        title: product.Title,
+        image: product.Poster,
+        year: product.Year,
+        price: (Math.random() * (100 - 50) + 50).toFixed(2),
+      }))
+    );
   },
   fetch: async (id: string): Promise<Product> => {
     const res = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=aa9e23c2`);
@@ -29,5 +32,4 @@ export default {
       rating: response.imdbRating,
     };
   },
-
 };
