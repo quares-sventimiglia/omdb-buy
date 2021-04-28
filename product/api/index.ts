@@ -1,11 +1,17 @@
 import { Products, Product } from "../types";
+import { Movie, OmdbResponse } from "./types";
+
+const callEndpoint = async <T>(type: string, query: string): Promise<T> => {
+  const res = await fetch(
+    `http://www.omdbapi.com/?${type}=${query}&${process.env.API_KEY}`
+  );
+  const response: Promise<T> = await res.json();
+  return response;
+};
 
 export default {
   search: async (query: string): Promise<Products[]> => {
-    const res = await fetch(
-      `http://www.omdbapi.com/?s=${query}&apikey=aa9e23c2`
-    );
-    const response = await res.json();
+    const response: OmdbResponse = await callEndpoint("s", query);
     if (response.Error) return [{ error: response.Error }];
     return (
       response &&
@@ -19,8 +25,9 @@ export default {
     );
   },
   fetch: async (id: string): Promise<Product> => {
-    const res = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=aa9e23c2`);
-    const response = await res.json();
+    // const res = await fetch(`http://www.omdbapi.com/?i=${id}&apikey=aa9e23c2`);
+    const response: Movie = await callEndpoint("i", id);
+    if (response.Error) return { error: response.Error };
     return {
       title: response.Title,
       year: response.Year,

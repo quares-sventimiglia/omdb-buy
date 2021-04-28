@@ -6,6 +6,8 @@ export interface RawProduct {
 }
 
 export interface Movie {
+  Error?: string;
+  Response?: string;
   Title: string,
   Year: string,
   Rated: string,
@@ -18,6 +20,7 @@ export interface Movie {
 
 
 export interface OmdbResponse {
-  Search: RawProduct[],
-  Error: string
+  Search?: RawProduct[],
+  Error?: string,
+  Response?: string
 }

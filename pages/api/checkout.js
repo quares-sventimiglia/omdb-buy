@@ -3,9 +3,6 @@ import "dotenv/config"
 
 export default async function (req, res) {
   const { title, year, plot, image } = req.body;
-
-  console.log("PROCESO", process.env.NODE_ENV)
-
   const environment = (process.env.NODE_ENV === "development" ? "localhost:3000" : "omdb-buy.vercel.app");
 
   mercadopago.configure({
