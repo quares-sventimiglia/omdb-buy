@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import FailurePage from "../pages/failure"
 
 interface Props {
   result: Product;
@@ -21,21 +22,19 @@ interface Props {
 
 const IndexPage: React.FC<Props> = ({ result }) => {
   const router = useRouter();
-  3;
 
   const [loading, setLoading] = useState<boolean>(false);
 
   const contactCreatePayment = async () => {
     setLoading(true);
     const response = await axios.post("/api/checkout", result);
-    console.log("RESPONSE", response)
 
     router.push(response.data.init_point)
     setLoading(false);
   };
 
   if (!result) return <h1>Not found</h1>;
-  // if(loading) return <Spinner size="xl"/>
+  if (result && result.error) return <FailurePage message={result.error} />
 
   return (
     <Box padding={4}>
