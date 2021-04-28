@@ -62,12 +62,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
         backgroundColor="#0b0a0c"
         height="100%"
         minHeight="100vh"
+        margin="0"
       >
         <Stack
           padding={4}
           spacing={6}
           direction="row"
           backgroundColor="yellow.400"
+          width="100%"
+          zIndex="1"
         >
           <IconButton
             colorScheme="yellow.400"
@@ -76,7 +79,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
             onClick={backHome}
           />
           <form action="" style={{ width: "100%" }} onSubmit={handleSubmit}>
-            <Stack direction="row" spacing={0} width="100%">
+            <Stack direction="row" spacing={0}>
               <Input
                 name="query"
                 backgroundColor="white"
