@@ -3,7 +3,7 @@ import Link from "next/link";
 import api from "../product/api";
 import { Products } from "../product/types";
 import { Stack, Box, Image, Text, Grid, Spinner } from "@chakra-ui/react";
-import Home from "../components/inputSearch/home";
+import Home from "./home";
 import FailurePage from "./failure";
 
 interface Props {
@@ -52,7 +52,7 @@ const IndexPage: React.FC<Props> = ({ results }) => {
       </Box>
     );
   } else {
-    return <Home />;
+    return <Home/>;
   }
 };
 
