@@ -3,8 +3,18 @@ import { Box, Text } from "@chakra-ui/react";
 
 const Home: React.FC = () => {
   return (
-    <Box margin="0 !important" padding={0}>
-      <video muted autoPlay loop style={{ margin: 0, width: "100%" }}>
+    <Box margin="0 !important" padding={0} pos="absolute">
+      <video
+        muted
+        autoPlay
+        loop
+        style={{
+          margin: 0,
+          width: "100%",
+          height: "100vh",
+          position: "relative",
+        }}
+      >
         <source src="/background-video.mov"></source>
       </video>
       <Text
